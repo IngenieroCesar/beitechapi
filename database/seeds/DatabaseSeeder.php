@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Order;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,5 +16,6 @@ class DatabaseSeeder extends Seeder
         //llamamos nuestros seeders creados para precargas datos fake
         $this->call(UserSeeder::class);
         $this->call(ProductsSeeder::class);
+        factory(Order::Class, 5)->create();
     }
 }

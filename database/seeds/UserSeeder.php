@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Products;
+use App\User;
 
 class UserSeeder extends Seeder
 {
@@ -18,5 +18,7 @@ class UserSeeder extends Seeder
             'email'     =>    'beitech@test.com',
             'password'  =>    bcrypt('12345'),  
           ]);
+          
+        factory(User::Class, 5)->create();
     }
 }
