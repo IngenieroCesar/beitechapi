@@ -42,7 +42,7 @@ class AuthController extends Controller
         //SI no son correctas las credenciales:
         if (!Auth::attempt($credentials)) {
             return response()->json([
-                'message' => 'Sin Autorización'], 401);
+                'message' => 'Usuario no autenticado.'], 401);
         }
         //Generamos el Token para ser enviado al SPA
         $user = $request->user();
@@ -72,6 +72,7 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
+        //Retornamos el perfil del usuario
         return response()->json($request->user());
     }
 }

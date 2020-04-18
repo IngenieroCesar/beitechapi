@@ -6,6 +6,8 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Order;
+use App\Products;
 
 
 class User extends Authenticatable
@@ -38,4 +40,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Creamos nuestra relación con el modelo Order
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
+
+    //Creamos nuestra relación con el modelo Products "Muchos a muchos"
+    public function products()
+    {
+        return $this->belongsToMany(Products::class)->withTimestamps();
+    }
+
 }
