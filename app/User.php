@@ -47,7 +47,7 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
-    //Creamos nuestra relación con el modelo Order
+    //Creamos nuestra relación con el modelo Order_detail, atravez de Order
     public function order_details(){
         return $this->hasManyThrough(Order_detail::class, Order::class);
     }

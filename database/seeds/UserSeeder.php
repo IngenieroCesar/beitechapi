@@ -16,9 +16,25 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name'      =>    'beitech',
             'email'     =>    'beitech@test.com',
+            'email_verified_at' => now(),
             'password'  =>    bcrypt('12345'),  
           ]);
-          
-        factory(User::Class, 5)->create();
+
+        //generamos a nuestro usuario u genera un relación con productos
+        $users = factory(App\User::Class, 5)->create()->each(function($user){
+            //Este metodo lo usamos para que genere la relación muchos a muchos entre estas dos tablas
+            $user->products()->attach($this->array(rand(1,10)));
+        });
     }
+
+        //Generamos el metodo array()
+        public function array($max){
+
+            $values = [];
+            for ($i=1; $i < $max ; $i++) { 
+            $values[] = $i;
+            }
+    
+            return $values;
+        }
 }

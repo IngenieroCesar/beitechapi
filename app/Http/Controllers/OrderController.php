@@ -18,7 +18,7 @@ class OrderController extends Controller
     
     public function show( Request $request ){
 
-        $products = User::find($request->id)->order_details;
+        $products = User::find($request->id)->products;
         $orders = User::find($request->id)->orders;
 
 

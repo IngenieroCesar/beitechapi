@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 use App\Order;
 use App\Order_detail;
 use App\Product_user;
+use App\Product;
+use App\User;
 
 
 class DatabaseSeeder extends Seeder
@@ -15,12 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UsersTableSeeder::class);
-        // llamamos nuestros seeders creados para precargas datos fake
+        factory(Product::Class, 10)->create();
         $this->call(UserSeeder::class);
-        $this->call(ProductSeeder::class);
-        factory(Order::Class, 10)->create();
-        factory(Order_detail::Class, 5)->create();        
-        
+        factory(Order::Class, 30)->create();
+        factory(Order_detail::Class, 30)->create();    
+                
     }
+
 }
