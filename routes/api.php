@@ -25,5 +25,7 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
         Route::get('products', 'ProductsController@index');
+        Route::post('orders', 'OrderController@show');
+        Route::get('order_details', 'OrderDetailController@index');
     });
 });

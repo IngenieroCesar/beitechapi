@@ -7,7 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Order;
-use App\Products;
+use App\Order_detail;
+use App\Product;
 
 
 class User extends Authenticatable
@@ -46,10 +47,15 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    //Creamos nuestra relación con el modelo Order
+    public function order_details(){
+        return $this->hasManyThrough(Order_detail::class, Order::class);
+    }
+
     //Creamos nuestra relación con el modelo Products "Muchos a muchos"
     public function products()
     {
-        return $this->belongsToMany(Products::class)->withTimestamps();
+        return $this->belongsToMany(Product::class);
     }
 
 }

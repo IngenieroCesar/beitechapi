@@ -2,11 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Products;
-use Faker\Generator as Faker;
 
-$factory->define(Products::class, function (Faker $faker) {
-    //Generamos datos de prueba para desarrollo
+use Faker\Generator as Faker;
+use App\Product;
+
+$factory->define(Product::class, function (Faker $faker) {
     return [
         'name' => $faker->cityPrefix,
         'description' => $faker->text,
