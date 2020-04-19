@@ -6,6 +6,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use App\Order;
 use App\Order_detail;
 use App\Product;
@@ -55,7 +56,9 @@ class User extends Authenticatable
     //Creamos nuestra relación con el modelo Products "Muchos a muchos"
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withTimestamps();
     }
+//Subconsultas SQL ELOQUENT
+
 
 }

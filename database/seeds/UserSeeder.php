@@ -13,6 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        //Insersión SQL
         DB::table('users')->insert([
             'name'      =>    'beitech',
             'email'     =>    'beitech@test.com',

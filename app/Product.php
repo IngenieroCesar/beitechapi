@@ -14,6 +14,6 @@ class Product extends Model
     //Creamos nuestra relación con el modelo User "Muchos a muchos"
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }
