@@ -39,4 +39,82 @@ class OrderController extends Controller
 
         return response()->json($getorder);
     }
+
+    //Eviamos todas nuestras ordenes:
+    public function create( Request $request)
+    {   
+        //Persistimos los datos resividos para trabajar con ellos
+        //Existe un error de diseño del objeto en donde no logre ciclarlo
+        //para no tener que asignar cada valor independiente
+        $userid = $request->userid;
+        unset($request['userid']);
+        //Pasamos nuestro objeto a un arreglo
+        $products = $request->toArray();
+
+        //Asignamos nombre de producto y la cantidad
+        foreach($products as $product){
+            if($product['name'] != ""){
+                $nombreproductos[] = $product['name'];
+                $cantidades[] = $product['quantity'];
+            }
+        }
+//--------------------------------------------------------------------------------
+        //Relación Productos y Usuario
+        $productos = Product::all();
+        //Buscamos los ID's de los productos correspondientes a la orden
+        foreach($productos as $producto){
+            foreach ($nombreproductos as $key => $nombre) {
+                if($producto->name == $nombre){
+                    $idproductos[] = $producto->id;
+                    $precios[] = $producto->price;
+                }
+            }
+        }
+        //Creamos la relacion entre el usuario y los productos
+        $user = User::find($userid);
+        $user->products()->attach($idproductos);      
+
+//--------------------------------------------------------------------------------
+        //Establecemos el total de la compra
+        for($ind = 0; $ind < count($precios); $ind++){
+            $totales[$ind] = $precios[$ind] * $cantidades[$ind];
+        }
+        $total = array_sum($totales);
+
+//--------------------------------------------------------------------------------
+        //Generamos nuestra order
+            $neworder = new Order();
+            $neworder->user_id = $userid;
+            $neworder->total = $total;
+            $neworder->save();
+
+//--------------------------------------------------------------------------------
+    //Creación de order_details:
+        //Traemos el id de la ordern
+        $lastestorder = DB::table('orders')->select('id')->orderBy('id','DESC')->take(1)->get();
+
+        //Ciclamos la creación ya que esta depende de el numero de producto que se crean, 
+        //y no del numero de ordenes 
+        $ind = 0;
+        foreach($productos as $producto){
+            foreach ($nombreproductos as $key => $nombre) {
+                if($producto->name == $nombre){
+
+                    $neworder_detail = new Order_detail();
+                    $neworder_detail->order_id = $lastestorder[0]->id;
+                    $neworder_detail->description = $producto->description;
+                    $neworder_detail->price = $precios[$ind];
+                    $neworder_detail->quantity = $cantidades[$ind];
+                    $neworder_detail->save();
+
+                    $ind++;
+                }
+            }
+            
+        }
+
+
+
+        return response()->json(['message' => 'Orden Creada satisfactoriamente!, verifica tus ordenes aquí!']);
+    }
 }

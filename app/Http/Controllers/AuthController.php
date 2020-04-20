@@ -54,6 +54,7 @@ class AuthController extends Controller
         $token->save();
         //Enviamos el token al SPA:
         return response()->json([
+            'userId' => $user->id,
             'access_token' => $tokenResult->accessToken,
             'token_type'   => 'Bearer',
             'expires_at'   => Carbon::parse(

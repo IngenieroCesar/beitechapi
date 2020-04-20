@@ -27,5 +27,6 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('products', 'ProductController@index');
         Route::post('orders', 'OrderController@show');
         Route::get('order_details', 'OrderDetailController@index');
+        Route::post('order', 'OrderController@create');
     });
 });

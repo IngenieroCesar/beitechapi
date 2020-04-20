@@ -8,7 +8,7 @@ use App\Product;
 
 $factory->define(Product::class, function (Faker $faker) {
     return [
-        'name' => $faker->cityPrefix,
+        'name' =>  $faker->unique()->userName,
         'description' => $faker->text,
         'price' => $faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = 1000),
     ];

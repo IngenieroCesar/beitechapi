@@ -13,7 +13,8 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        //Script envio de productos
         return response()->json(Product::all());
     }
 
