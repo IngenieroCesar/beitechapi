@@ -22,9 +22,9 @@ class UserSeeder extends Seeder
           ]);
 
         //generamos a nuestro usuario u genera un relación con productos
-        $users = factory(App\User::Class, 5)->create()->each(function($user){
+        $users = factory(App\User::Class, 15)->create()->each(function($user){
             //Este metodo lo usamos para que genere la relación muchos a muchos entre estas dos tablas
-            $user->products()->attach($this->array(rand(1,10)));
+            $user->products()->attach($this->array(rand(1,30)));
         });
     }
 
